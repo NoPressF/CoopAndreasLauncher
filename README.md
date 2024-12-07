@@ -7,6 +7,7 @@ This launcher was created for a cooperative modification for GTA:SA called [Coop
 
 ## Building
 
+**Build application**
 1. Install Android Studio [Android Studio](https://developer.android.com/studio)
 2. Download Flutter SDK 3.24.3 or higher [Flutter SDK](https://docs.flutter.dev/get-started/install/windows/desktop#159-tab-panel) and follow the instructions
 3. Install plugins (Dart, Flutter, Flutter Intl)
@@ -14,4 +15,13 @@ This launcher was created for a cooperative modification for GTA:SA called [Coop
 5. Verify if your current folder in terminal is "coopandreas_launcher" and type command
 ```ps
 flutter build windows
+```
+**Build game runner**
+
+Open cmd in the repository directory and run
+```cmd
+cd native
+mkdir build
+cmake -S . -B build -A Win32
+cmake --build build --config MinSizeRel
 ```
