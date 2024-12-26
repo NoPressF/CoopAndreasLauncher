@@ -1,47 +1,66 @@
+import 'package:coopandreas_launcher/classes/settings/unique_system_id/unique_system_id.dart';
 import 'package:coopandreas_launcher/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
-import 'classes/entry_point.dart';
-import 'classes/storage_data.dart';
-import 'language_provider.dart';
-import 'constants.dart';
+import 'package:coopandreas_launcher/l10n/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'classes/data/storage_data.dart';
+import 'classes/misc/system_info_provider.dart';
+import 'language/language_provider.dart';
+import 'launcher/main_page.dart';
+import 'theme/dark.dart';
+import 'theme/light.dart';
+import 'utils/constants.dart';
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
   WindowManager.instance.setMaximizable(false);
 
-  WindowOptions windowOptions = const WindowOptions(
-    title: "CoopAndreas Launcher",
-    size: Size(screenSizeX, screenSizeY),
-    minimumSize: Size(screenSizeX, screenSizeY),
-    maximumSize: Size(screenSizeX, screenSizeY),
-    titleBarStyle: TitleBarStyle.hidden,
-    center: true
-  );
+  WindowOptions windowOptions = WindowOptions(
+      title: "CoopAndreas Launcher",
+      size: Constants.windowScreenSize,
+      minimumSize: Constants.windowScreenSize,
+      maximumSize: Constants.windowScreenSize,
+      titleBarStyle: TitleBarStyle.hidden,
+      center: true);
 
   windowManager.waitUntilReadyToShow(windowOptions, () async {
-     await windowManager.show();
-     await windowManager.focus();
+    await windowManager.show();
+    await windowManager.focus();
   });
 
   await StorageData.init();
-  SharedPreferences prefs = StorageData.getSharedPreferences;
+  UniqueSystemId.init(SystemInfoProvider.getUniqueSystemId());
 
-  runApp(
-    MultiProvider(
+  runApp(MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => LanguageProvider()),
         ChangeNotifierProvider(
-            create: (_) => LanguageProvider(prefs)
-        ),
-        ChangeNotifierProvider(
-          create: (context) => ThemeProvider(WidgetsBinding.instance.platformDispatcher.platformBrightness),
+          create: (context) => ThemeProvider(
+              WidgetsBinding.instance.platformDispatcher.platformBrightness),
         ),
       ],
-      child: const EntryPoint(),
-    )
-  );
+      child: Consumer<ThemeProvider>(builder: (context, themeProvider, _) {
+        return Consumer<LanguageProvider>(
+            builder: (context, languageProvider, __) {
+          return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: lightTheme,
+              darkTheme: darkTheme,
+              themeMode:
+                  themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+              supportedLocales: L10n.all,
+              locale: languageProvider.locale,
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate
+              ],
+              home: MainPage());
+        });
+      })));
 }

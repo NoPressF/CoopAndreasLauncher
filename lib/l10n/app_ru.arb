@@ -4,7 +4,7 @@
   "server": "Сервер",
   "title_connect_to_server": "Подключиться к серверу",
   "nickname": "Никнейм",
-  "title_start_a_new_server" : "Запустить новый CoopAndreas сервер",
+  "title_start_a_new_server": "Запустить новый CoopAndreas сервер",
   "max_players": "Макс. кол-во игроков",
   "start_server": "Запустить сервер",
   "authors": "Авторы",
@@ -29,7 +29,7 @@
       }
     }
   },
-  "invalid_ip_port" : "Неверный IP Port (Пример: {defaultServerAddress})",
+  "invalid_ip_port": "Неверный IP Port (Пример: {defaultServerAddress})",
   "@invalid_ip_port": {
     "placeholders": {
       "defaultServerAddress": {
@@ -52,5 +52,9 @@
     }
   },
   "switch_theme": "Переключить тему",
-  "game_path_not_set": "Путь к игре не установлен"
+  "game_folder_path_not_set": "Путь к игре не установлен",
+  "game_executable_launcher_not_found": "Исполняемый файл лаунчера не найден",
+  "serial_key": "Серийный ключ",
+  "go_to_settings": "Перейти к настройкам",
+  "important_info_about_serial_key": "Ты играешь в alpha/beta версию CoopAndreas.\nЭта версия нуждается в серийном ключе бета-теста.\nНе беспокойтесь, мод, как и серийный ключ полностью бесплатны.\nЗайдите на наш дискорд сервер, и введите в любой канал команду ниже"
 }

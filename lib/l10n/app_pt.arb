@@ -4,7 +4,7 @@
   "server": "Servidor",
   "title_connect_to_server": "Conecte se ao servidor",
   "nickname": "Apelido",
-  "title_start_a_new_server" : "Iniciar um novo CoopAndreas servidor",
+  "title_start_a_new_server": "Iniciar um novo CoopAndreas servidor",
   "max_players": "Max Jogadores",
   "start_server": "Iniciar o servidor",
   "authors": "Autores",
@@ -29,7 +29,7 @@
       }
     }
   },
-  "invalid_ip_port" : "Inválido IP Porta (Exemplo: {defaultServerAddress})",
+  "invalid_ip_port": "Inválido IP Porta (Exemplo: {defaultServerAddress})",
   "@invalid_ip_port": {
     "placeholders": {
       "defaultServerAddress": {
@@ -52,5 +52,9 @@
     }
   },
   "switch_theme": "Mudar de tópico",
-  "game_path_not_set": "O caminho para o jogo não está definido"
+  "game_folder_path_not_set": "O caminho para o jogo não está definido",
+  "game_executable_launcher_not_found": "O iniciador do executável do jogo não foi encontrado",
+  "serial_key": "Chave serial",
+  "go_to_settings": "Vá para configurações",
+  "important_info_about_serial_key": "Você está jogando a versão alpha/beta do CoopAndreas.\nEsta versão requer uma chave de série para o beta teste.\nNão se preocupe, tanto o mod quanto a chave de série são completamente gratuitos.\nEntre no nosso \nServidor do Discord e digite o comando abaixo em\nqualquer canalе"
 }

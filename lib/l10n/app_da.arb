@@ -4,7 +4,7 @@
   "server": "Server",
   "title_connect_to_server": "Forbind til serveren",
   "nickname": "Kælenavn",
-  "title_start_a_new_server" : "Starter en ny CoopAndreas server",
+  "title_start_a_new_server": "Starter en ny CoopAndreas server",
   "max_players": "Max spillere",
   "start_server": "Start serveren",
   "authors": "Forfattere",
@@ -29,7 +29,7 @@
       }
     }
   },
-  "invalid_ip_port" : "Ugyldigt IP Port (Eksempel: {defaultServerAddress})",
+  "invalid_ip_port": "Ugyldigt IP Port (Eksempel: {defaultServerAddress})",
   "@invalid_ip_port": {
     "placeholders": {
       "defaultServerAddress": {
@@ -52,5 +52,9 @@
     }
   },
   "switch_theme": "Skift emne",
-  "game_path_not_set": "Vejen til spillet er ikke fastlagt"
+  "game_folder_path_not_set": "Vejen til spillet er ikke fastlagt",
+  "game_executable_launcher_not_found": "Spillets eksekverbare startprogram blev ikke fundet",
+  "serial_key": "Seriel nøgle",
+  "go_to_settings": "Gå til Indstillinger",
+  "important_info_about_serial_key": "Du spiller alfa/beta-versionen af CoopAndreas.\nDenne version har brug for en beta-test seriel nøgle.\nBare rolig, mod'en såvel som den serielle nøgle er helt gratis.\nGå til vores Discord-server, og skriv kommandoen nedenfor i en hvilken som helst kanal"
 }

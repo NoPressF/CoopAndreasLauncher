@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
-import '../classes/storage_data.dart';
+import '../classes/data/storage_data.dart';
 
 class ThemeProvider extends ChangeNotifier {
-
   bool _isDarkMode = false;
-  bool get isDarkMode => _isDarkMode;
 
-  bool getStorageDarkModeStateFailReturn(bool failReturn) {
-    return StorageData.getStorageBoolFieldData('isDarkMode') ?? failReturn;
-  }
+  bool get isDarkMode => _isDarkMode;
 
   ThemeProvider(Brightness brightness) {
     initTheme(brightness);
   }
 
   void initTheme(Brightness brightness) {
-    dynamic tempIsDarkMode = StorageData.getStorageBoolFieldData('isDarkMode');
+    dynamic tempIsDarkMode =
+        StorageData.getStorageBoolFieldData(StorageField.isDarkMode);
 
     _isDarkMode = tempIsDarkMode ?? brightness == Brightness.dark;
 
-    if(tempIsDarkMode == null) {
+    if (tempIsDarkMode == null) {
       saveTheme();
     }
   }
@@ -31,6 +28,6 @@ class ThemeProvider extends ChangeNotifier {
   }
 
   void saveTheme() {
-    StorageData.setStorageBoolFieldData('isDarkMode', _isDarkMode);
+    StorageData.setStorageBoolFieldData(StorageField.isDarkMode, _isDarkMode);
   }
 }

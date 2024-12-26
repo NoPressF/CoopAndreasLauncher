@@ -1,0 +1,60 @@
+{
+  "@@locale": "he",
+  "connect": "להתחבר",
+  "server": "שרת",
+  "title_connect_to_server": "להתחבר לשרת",
+  "nickname": "שם משתמש",
+  "title_start_a_new_server" : "התחל שרת CoopAndreas חדש",
+  "max_players": "מקסימום שחקנים",
+  "start_server": "פתח שרת",
+  "authors": "Authors",
+  "close": "סגור",
+  "port": "פורט",
+  "ip_port": "אייפי:{labelPort}",
+  "@ip_port": {
+    "placeholders": {
+      "labelPort": {
+        "type": "String"
+      }
+    }
+  },
+  "invalid_nickname": "כינוי לא חוקי ({minPlayerNicknameCharacters}-{maxPlayerNicknameCharacters} תווים)",
+  "@invalid_nickname": {
+    "placeholders": {
+      "minPlayerNicknameCharacters": {
+        "type": "int"
+      },
+      "maxPlayerNicknameCharacters": {
+        "type": "int"
+      }
+    }
+  },
+  "invalid_ip_port": "כתובת IP או פורט לא חוקיים (דוגמה: {defaultServerAddress})",
+  "@invalid_ip_port": {
+    "placeholders": {
+      "defaultServerAddress": {
+        "type": "String"
+      }
+    }
+  },
+  "mod": "מצב: ",
+  "launcher": "לאנצר: ",
+  "special_thanks": "תודה במיוחד: ",
+  "community": "קהילה",
+  "failed_parse_ip_and_port": "שגיאה בניתוח כתובת ה-IP והפורט",
+  "game_not_found": "המשחק לא נמצא",
+  "mod_not_found": "{modName} לא נמצא",
+  "@mod_not_found": {
+    "placeholders": {
+      "modName": {
+        "type": "String"
+      }
+    }
+  },
+  "switch_theme": "החלף נושא",
+  "game_folder_path_not_set": "נתיב המשחק לא הוגדר",
+  "game_executable_launcher_not_found": "משגר קובץ ההפעלה של המשחק לא נמצא",
+  "serial_key": "מפתח סידורי",
+  "go_to_settings": "עבור להגדרות",
+  "important_info_about_serial_key": "אתה משחק בגרסת האלפא/בטא של CoopAndreas.\nגרסה זו דורשת מפתח סידורי לבדיקה.\nאל דאגה, המוד והמפתח הסידורי הם חינמיים לחלוטין.\nגש לשרת הדיסקורד שלנו, והקלד את הפקודה הבאה בכל ערוץ."
+}

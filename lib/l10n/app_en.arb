@@ -4,7 +4,7 @@
   "server": "Server",
   "title_connect_to_server": "Connect to the server",
   "nickname": "Nickname",
-  "title_start_a_new_server" : "Start a new CoopAndreas server",
+  "title_start_a_new_server": "Start a new CoopAndreas server",
   "max_players": "Max players",
   "start_server": "Start server",
   "authors": "Authors",
@@ -29,7 +29,7 @@
       }
     }
   },
-  "invalid_ip_port" : "Invalid IP Port (Example: {defaultServerAddress})",
+  "invalid_ip_port": "Invalid IP Port (Example: {defaultServerAddress})",
   "@invalid_ip_port": {
     "placeholders": {
       "defaultServerAddress": {
@@ -52,5 +52,9 @@
     }
   },
   "switch_theme": "Switch theme",
-  "game_path_not_set": "Game path not set"
+  "game_folder_path_not_set": "Game path not set",
+  "game_executable_launcher_not_found": "Game executable launcher not found",
+  "serial_key": "Serial key",
+  "go_to_settings": "Go to Settings",
+  "important_info_about_serial_key": "You are playing the alpha/beta version of CoopAndreas.\nThis version needs a beta test serial key.\nDon't worry, the mod as well as the serial key are completely free.\nGo to our Discord server, and type in the command below into any channel"
 }

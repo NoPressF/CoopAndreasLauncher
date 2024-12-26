@@ -4,7 +4,7 @@
   "server": "Server",
   "title_connect_to_server": "Koble til server",
   "nickname": "Kallenavn",
-  "title_start_a_new_server" : "Starte en ny CoopAndreas server",
+  "title_start_a_new_server": "Starte en ny CoopAndreas server",
   "max_players": "Maks spillere",
   "start_server": "Starte serveren",
   "authors": "Forfattere",
@@ -29,7 +29,7 @@
       }
     }
   },
-  "invalid_ip_port" : "Ugyldig IP Port (Eksempel: {defaultServerAddress})",
+  "invalid_ip_port": "Ugyldig IP Port (Eksempel: {defaultServerAddress})",
   "@invalid_ip_port": {
     "placeholders": {
       "defaultServerAddress": {
@@ -52,5 +52,9 @@
     }
   },
   "switch_theme": "Bytt emne",
-  "game_path_not_set": "Veien til spillet er ikke satt"
+  "game_folder_path_not_set": "Veien til spillet er ikke satt",
+  "game_executable_launcher_not_found": "Finner ikke spillets kjørbare startprogram",
+  "serial_key": "Seriell nøkkel",
+  "go_to_settings": "Gå til Innstillinger",
+  "important_info_about_serial_key": "Du spiller alfa/beta-versjonen av CoopAndreas.\nDenne versjonen trenger en betatestserienøkkel.\nIkke bekymre deg, moden så vel som serienøkkelen er helt gratis.\nGå til vår Discord-server, og skriv inn kommandoen nedenfor i en hvilken som helst kanal"
 }

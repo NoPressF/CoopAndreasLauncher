@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
+import '../utils/constants.dart';
 
 class L10n {
-  static final all = [
-    const Locale('en'),
-    const Locale('pt'),
-    const Locale('nb'),
-    const Locale('da'),
-    const Locale('ru'),
-    const Locale('uk')
-  ];
+  static final all =
+      Constants.launcherLanguages.keys.map((code) => Locale(code)).toList();
 }
