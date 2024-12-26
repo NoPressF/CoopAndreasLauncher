@@ -25,3 +25,8 @@ mkdir build
 cmake -S . -B build -A Win32
 cmake --build build --config MinSizeRel
 ```
+
+## Contributors
+Thanks [@SrMilton](https://github.com/SrMilton) for (Portuguese, English) translation  
+Thanks **sfx___** for Hebrew translation  
+Thanks [@Tornamic](https://github.com/Tornamic) for (Ukrainian, Russian) translation
