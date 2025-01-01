@@ -21,20 +21,21 @@ class ModInfo extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(3.0),
             child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                    color:
-                        !themeProvider.isDarkMode ? Colors.black : Colors.white,
-                    iconSize: 19.0,
-                    icon: const Icon(FontAwesomeIcons.github),
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onPressed: () async {
-                      final Uri url = Uri.parse(Constants.coopAndreasGitHubUrl);
-                      await launchUrl(url);
-                    }),
+                  color:
+                      !themeProvider.isDarkMode ? Colors.black : Colors.white,
+                  iconSize: 19.0,
+                  icon: const Icon(FontAwesomeIcons.github),
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onPressed: () async {
+                    final Uri url = Uri.parse(Constants.coopAndreasGitHubUrl);
+                    await launchUrl(url);
+                  },
+                ),
                 IconButton(
-                  padding: const EdgeInsets.only(right: 17),
                   color: const Color(0xFF5662F6),
                   iconSize: 19.0,
                   icon: const Icon(FontAwesomeIcons.discord),
@@ -45,20 +46,27 @@ class ModInfo extends StatelessWidget {
                         Uri.parse(Constants.coopAndreasDiscordChannelUrl);
                     await launchUrl(url);
                   },
-                )
+                ),
               ],
             ),
           ),
         ),
-        const Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: 8, right: 12),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Directionality(
+              textDirection: TextDirection.ltr,
               child: Text(
                 Constants.modVersion,
-                style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ))
+            ),
+          ),
+        ),
       ],
     );
   }
