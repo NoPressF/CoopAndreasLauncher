@@ -10,7 +10,8 @@ class Constants {
   static const int maxMainTabControllerLength = 2;
   static const double windowScreenSizeX = 500;
   static const double windowScreenSizeY = 350;
-  static const Size windowScreenSize = Size(windowScreenSizeX, windowScreenSizeY);
+  static const Size windowScreenSize =
+      Size(windowScreenSizeX, windowScreenSizeY);
   static RegExp playerNickNameRegExp = RegExp(r"^([a-zA-Z0-9_\[\]]{3,24})$");
   static RegExp connectIpPortRegExp = RegExp(
       r"\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):\d{1,5}\b");
@@ -26,10 +27,10 @@ class Constants {
   static const String gameModName = 'CoopAndreasSA.dll';
   static const Map<String, String> launcherLanguages = {
     'en': 'English',
-    'pt': 'Portuguese',
+    'pt': 'Português',
     'nb': 'Norsk',
-    'da': 'Danish',
-    'he': 'Hebrew',
+    'da': 'Dansk',
+    'he': 'עִברִית',
     'ru': 'Русский',
     'uk': 'Українська'
   };
