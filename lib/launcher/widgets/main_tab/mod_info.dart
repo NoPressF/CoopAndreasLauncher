@@ -1,7 +1,10 @@
+import 'package:coopandreas_launcher/classes/controllers/page_controllers_manipulate.dart';
+import 'package:coopandreas_launcher/classes/controllers/version_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../utils/constants.dart';
 import '../../../theme/theme_provider.dart';
 
@@ -57,12 +60,30 @@ class ModInfo extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: Directionality(
               textDirection: TextDirection.ltr,
-              child: Text(
-                Constants.modVersion,
-                style: const TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Visibility(
+                    visible: PageControllersManipulate.getCurrentPage == 1,
+                    child: Text(
+                      "${AppLocalizations.of(context)!.launcher}: ${VersionController.currentLauncherVersion.toString()}",
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    PageControllersManipulate.getCurrentPage == 0
+                        ? VersionController.currentModVersion.toString()
+                        : "${AppLocalizations.of(context)!.mod}: ${VersionController.currentModVersion.toString()}",
+                    style: const TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

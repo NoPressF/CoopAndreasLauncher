@@ -24,7 +24,7 @@ class StartGame {
     return [result, ip, port];
   }
 
-  static Future<LaunchResultType> tryStartGame() async {
+  static Future<LaunchResultType> tryStartGame({bool debug = false}) async {
     final String gameFolderPath = GamePath.getFolderPath;
 
     if (gameFolderPath.isEmpty) {
@@ -82,7 +82,8 @@ class StartGame {
       '-id',
       UniqueSystemId.getUniqueSystemId,
       '-serial',
-      TextControllerManipulate.getController(TextController.serialKey).text
+      TextControllerManipulate.getController(TextController.serialKey).text,
+      debug.toString()
     ];
 
     Process.runSync(gameExecutableLauncherFilePath, args,

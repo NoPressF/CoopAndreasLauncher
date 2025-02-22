@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'main_colors.dart';
 
 const Color darkGreyColor = Color(0xFFBFC8CA);
-const Color darkButtonBackgroundColor = Colors.white;
+const Color darkButtonBackgroundColor = Color(0xFFD7D7D7);
+const Color darkAnimatedButtonBackgroundColor = Color(0xFFCBCBCB);
 
 const OutlineInputBorder darkInputBorder = OutlineInputBorder(
     borderSide: BorderSide(color: Colors.white),
@@ -26,7 +27,7 @@ final ThemeData darkTheme = ThemeData(
     tabBarTheme: const TabBarTheme(unselectedLabelColor: darkGreyColor),
     textButtonTheme: const TextButtonThemeData(
         style:
-            ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.white))),
+            ButtonStyle(backgroundColor: WidgetStatePropertyAll(darkButtonBackgroundColor))),
     dialogTheme: const DialogTheme(backgroundColor: darkColor),
     colorScheme: const ColorScheme.dark(
         brightness: Brightness.dark,

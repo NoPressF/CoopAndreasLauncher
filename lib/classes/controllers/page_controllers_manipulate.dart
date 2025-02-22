@@ -5,7 +5,6 @@ class PageControllersManipulate {
   static int _currentPage = 0;
 
   static get getController => _pageController;
-
   static get getCurrentPage => _currentPage;
 
   static void setCurrentPage(int page) {

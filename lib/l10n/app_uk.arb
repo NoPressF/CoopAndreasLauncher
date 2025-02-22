@@ -37,8 +37,8 @@
       }
     }
   },
-  "mod": "Мод: ",
-  "launcher": "Лаунчер: ",
+  "mod": "Мод",
+  "launcher": "Лаунчер",
   "special_thanks": "Окрема подяка: ",
   "community": "Спільнота",
   "failed_parse_ip_and_port": "Не вдалось проаналізувати IP та Порт",

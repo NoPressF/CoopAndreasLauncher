@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'main_colors.dart';
 
-const Color lightButtonBackgroundColor = Color(0xFF282828);
-const Color lightLightGreyColor = Color(0xFF575757);
+const Color lightLightGreyColor = Color(0xFF646464);
+const Color lightButtonBackgroundColor = Color(0xFF646464);
+const Color lightAnimatedButtonBackgroundColor = Color(0xFF333333);
 
 const OutlineInputBorder _lightInputBorder = OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.black),
+    borderSide: BorderSide(color: Color(0xFF626262)),
     borderRadius: BorderRadius.all(Radius.circular(15.0)));
 
 const OutlineInputBorder _lightErrorBorder = OutlineInputBorder(
@@ -14,7 +15,7 @@ const OutlineInputBorder _lightErrorBorder = OutlineInputBorder(
 
 final ThemeData lightTheme = ThemeData(
   useMaterial3: true,
-  scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+  scaffoldBackgroundColor: const Color(0xFFE7E7E7),
   inputDecorationTheme: const InputDecorationTheme(
       labelStyle: TextStyle(fontSize: 15.0),
       enabledBorder: _lightInputBorder,
@@ -26,7 +27,7 @@ final ThemeData lightTheme = ThemeData(
   tabBarTheme: const TabBarTheme(unselectedLabelColor: Color(0xFF646464)),
   textButtonTheme: const TextButtonThemeData(
       style: ButtonStyle(
-          backgroundColor: WidgetStatePropertyAll(lightButtonBackgroundColor))),
+          backgroundColor: WidgetStatePropertyAll(Color(0xFF333333)))),
   colorScheme: const ColorScheme.light(
       brightness: Brightness.light,
       primary: Colors.black,

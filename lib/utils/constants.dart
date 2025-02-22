@@ -19,7 +19,6 @@ class Constants {
       'https://github.com/Tornamic/CoopAndreas';
   static const String coopAndreasDiscordChannelUrl =
       'https://discord.gg/TwQsR4qxVx';
-  static const String modVersion = '0.1.1b';
   static const String defaultLanguageCode = 'en';
   static const String defaultServerIp = '127.0.0.1';
   static const String defaultServerAddress =

@@ -37,8 +37,8 @@
       }
     }
   },
-  "mod": "Mod: ",
-  "launcher": "Launcher: ",
+  "mod": "Mod",
+  "launcher": "Launcher",
   "special_thanks": "Special thanks: ",
   "community": "Community",
   "failed_parse_ip_and_port": "Failed parse IP and Port",

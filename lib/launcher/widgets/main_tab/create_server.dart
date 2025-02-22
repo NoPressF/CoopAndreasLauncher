@@ -95,14 +95,13 @@ class _CreateServerState extends State<CreateServerTab> {
           AnimatedButton(
             height: 30,
             width: 140,
-            isReverse: true,
             selectedTextColor:
                 !themeProvider.isDarkMode ? Colors.white : Colors.black,
             selectedBackgroundColor: Colors.green,
             transitionType: TransitionType.LEFT_TO_RIGHT,
             backgroundColor: !themeProvider.isDarkMode
-                ? lightButtonBackgroundColor
-                : darkButtonBackgroundColor,
+                ? lightAnimatedButtonBackgroundColor
+                : darkAnimatedButtonBackgroundColor,
             text: AppLocalizations.of(context)!.start_server,
             borderRadius: 50,
             textStyle: TextStyle(

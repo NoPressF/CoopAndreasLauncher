@@ -37,8 +37,8 @@
       }
     }
   },
-  "mod": "מצב: ",
-  "launcher": "לאנצר: ",
+  "mod": "מצב",
+  "launcher": "לאנצר",
   "special_thanks": "תודה במיוחד: ",
   "community": "קהילה",
   "failed_parse_ip_and_port": "שגיאה בניתוח כתובת ה-IP והפורט",

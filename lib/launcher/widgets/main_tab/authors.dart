@@ -32,7 +32,7 @@ Future getAuthorsDialog(BuildContext context, ThemeProvider themeProvider) {
                 children: [
                   RichText(
                       text: TextSpan(
-                          text: AppLocalizations.of(context)!.mod,
+                          text: "${AppLocalizations.of(context)!.mod}: ",
                           style: TextStyle(
                               color: !themeProvider.isDarkMode
                                   ? Colors.black
@@ -51,7 +51,7 @@ Future getAuthorsDialog(BuildContext context, ThemeProvider themeProvider) {
                       ])),
                   RichText(
                       text: TextSpan(
-                          text: AppLocalizations.of(context)!.launcher,
+                          text: "${AppLocalizations.of(context)!.launcher}: ",
                           style: TextStyle(
                               color: !themeProvider.isDarkMode
                                   ? Colors.black

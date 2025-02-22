@@ -37,8 +37,8 @@
       }
     }
   },
-  "mod": "Mod: ",
-  "launcher": "Lançador: ",
+  "mod": "Mod",
+  "launcher": "Lançador",
   "special_thanks": "Agradecimentos especiais: ",
   "community": "Comunidade",
   "failed_parse_ip_and_port": "Falha ao analisar IP e Porta",
