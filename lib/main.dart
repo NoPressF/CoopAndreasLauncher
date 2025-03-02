@@ -1,3 +1,4 @@
+import 'package:coopandreas_launcher/classes/controllers/version_controller.dart';
 import 'package:coopandreas_launcher/classes/settings/unique_system_id/unique_system_id.dart';
 import 'package:coopandreas_launcher/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,7 @@ Future<void> main() async {
           create: (context) => ThemeProvider(
               WidgetsBinding.instance.platformDispatcher.platformBrightness),
         ),
+        ChangeNotifierProvider(create: (_) => VersionController())
       ],
       child: Consumer<ThemeProvider>(builder: (context, themeProvider, _) {
         return Consumer<LanguageProvider>(

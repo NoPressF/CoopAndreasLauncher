@@ -6,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../classes/controllers/page_controllers_manipulate.dart';
 import '../classes/controllers/tab_controllers_manipulate.dart';
 import '../classes/controllers/text_controllers_manipulate.dart';
+import '../classes/controllers/version_controller.dart';
 import '../classes/fields/manipulate.dart';
 import '../theme/dark.dart';
 import '../theme/light.dart';
@@ -41,6 +42,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
       if (TextControllerManipulate.isSerialKeyEmpty) {
         SerialKeyReminder.init(context);
       }
+      Provider.of<VersionController>(context, listen: false).update();
     });
   }
 

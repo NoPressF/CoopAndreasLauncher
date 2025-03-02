@@ -2,6 +2,7 @@ import 'package:coopandreas_launcher/classes/controllers/page_controllers_manipu
 import 'package:coopandreas_launcher/classes/controllers/version_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -16,6 +17,7 @@ class ModInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final versionController = Provider.of<VersionController>(context);
 
     return Stack(
       children: [
@@ -67,7 +69,7 @@ class ModInfo extends StatelessWidget {
                   Visibility(
                     visible: PageControllersManipulate.getCurrentPage == 1,
                     child: Text(
-                      "${AppLocalizations.of(context)!.launcher}: ${VersionController.currentLauncherVersion.toString()}",
+                      "${AppLocalizations.of(context)!.launcher}: ${versionController.currentLauncherVersion.toString()}",
                       style: const TextStyle(
                         fontSize: 12.0,
                         fontWeight: FontWeight.bold,
@@ -76,11 +78,16 @@ class ModInfo extends StatelessWidget {
                   ),
                   Text(
                     PageControllersManipulate.getCurrentPage == 0
-                        ? VersionController.currentModVersion.toString()
-                        : "${AppLocalizations.of(context)!.mod}: ${VersionController.currentModVersion.toString()}",
-                    style: const TextStyle(
+                        ? versionController.getCurrentModVersion(context)
+                        : "${AppLocalizations.of(context)!.mod}: ${versionController.getCurrentModVersion(context)}",
+                    style: TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.bold,
+                      color: versionController.currentModVersion == Version.none
+                          ? Colors.red
+                          : !themeProvider.isDarkMode
+                              ? Colors.black
+                              : Colors.white,
                     ),
                   ),
                 ],

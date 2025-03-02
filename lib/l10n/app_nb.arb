@@ -56,5 +56,6 @@
   "game_executable_launcher_not_found": "Finner ikke spillets kjørbare startprogram",
   "serial_key": "Seriell nøkkel",
   "go_to_settings": "Gå til Innstillinger",
-  "important_info_about_serial_key": "Du spiller alfa/beta-versjonen av CoopAndreas.\nDenne versjonen trenger en betatestserienøkkel.\nIkke bekymre deg, moden så vel som serienøkkelen er helt gratis.\nGå til vår Discord-server, og skriv inn kommandoen nedenfor i en hvilken som helst kanal"
+  "important_info_about_serial_key": "Du spiller alfa/beta-versjonen av CoopAndreas.\nDenne versjonen trenger en betatestserienøkkel.\nIkke bekymre deg, moden så vel som serienøkkelen er helt gratis.\nGå til vår Discord-server, og skriv inn kommandoen nedenfor i en hvilken som helst kanal",
+  "unknown": "Ukjent"
 }

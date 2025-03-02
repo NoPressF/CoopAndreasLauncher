@@ -16,6 +16,8 @@ class GamePath {
 
   static get getExecutableLauncherPath => _executableLauncherPath;
 
+  static get getModPath => _modPath;
+
   static get isFolderPathEmpty => _folderPath.isEmpty;
 
   static bool isGameExecutableAbsentInPath() {

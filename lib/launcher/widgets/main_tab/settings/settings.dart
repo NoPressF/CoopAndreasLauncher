@@ -1,3 +1,4 @@
+import 'package:coopandreas_launcher/classes/controllers/version_controller.dart';
 import 'package:coopandreas_launcher/classes/fields/manipulate.dart';
 import 'package:coopandreas_launcher/classes/settings/unique_system_id/unique_system_id.dart';
 import 'package:coopandreas_launcher/launcher/widgets/main_tab/settings/custom_widgets/setting_background.dart';
@@ -124,11 +125,13 @@ class _LauncherSettingsState extends State<LauncherSettings> {
             onPressed: () async {
               String? selectedDirectory = await FilePicker.platform
                   .getDirectoryPath(lockParentWindow: true);
-              if (selectedDirectory != null) {
-                setState(() {
+              setState(() {
+                if (selectedDirectory != null) {
                   GamePath.setPath(selectedDirectory);
-                });
-              }
+                  Provider.of<VersionController>(context, listen: false)
+                      .update();
+                }
+              });
             }),
         additionallyWidgets: [
           SelectableText(
