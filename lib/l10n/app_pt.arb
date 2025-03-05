@@ -57,5 +57,6 @@
   "serial_key": "Chave serial",
   "go_to_settings": "Vá para configurações",
   "important_info_about_serial_key": "Você está jogando a versão alpha/beta do CoopAndreas.\nEsta versão requer uma chave de série para o beta teste.\nNão se preocupe, tanto o mod quanto a chave de série são completamente gratuitos.\nEntre no nosso \nServidor do Discord e digite o comando abaixo em\nqualquer canalе",
-  "unknown": "Desconhecido"
+  "unknown": "Desconhecido",
+  "unknown_mod_version": "Versão mod desconhecida"
 }

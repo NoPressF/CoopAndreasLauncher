@@ -203,15 +203,18 @@ class _ConnectToServerTabState extends State<ConnectToServerTab> {
                 ),
                 Visibility(
                     visible: LaunchResult.isVisibilityFailedLaunch,
-                    child: Text(
-                      LaunchResult.getFailedLaunchResult(
-                          context, _lastLaunchResult),
-                      style: const TextStyle(
-                          color: Colors.red, fontWeight: FontWeight.w600),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 3.0, bottom: 7.0),
+                      child: Text(
+                        LaunchResult.getFailedLaunchResult(
+                            context, _lastLaunchResult),
+                        style: const TextStyle(
+                            color: Colors.red, fontWeight: FontWeight.w600),
+                      ),
                     ))
               ]
                   .map((e) => Padding(
-                      padding: const EdgeInsets.only(top: 10.0), child: e))
+                      padding: const EdgeInsets.only(top: 5.0), child: e))
                   .toList()),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -9,6 +9,7 @@ enum LaunchResultType {
   gameExecutableNotFound,
   gameExecutableLauncherNotFound,
   modNotFound,
+  unknownModVersion,
   emptySerialKey
 }
 
@@ -36,6 +37,8 @@ class LaunchResult {
       case LaunchResultType.modNotFound:
         return AppLocalizations.of(context)!
             .mod_not_found(Constants.gameModName);
+      case LaunchResultType.unknownModVersion:
+        return AppLocalizations.of(context)!.unknown_mod_version;
       case LaunchResultType.emptySerialKey:
         return "";
     }

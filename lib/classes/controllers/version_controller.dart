@@ -4,9 +4,9 @@ import '../../utils/extract_version.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VersionController extends ChangeNotifier {
-  static final VersionController _instance = VersionController._internal();
+  static final VersionController instance = VersionController._internal();
 
-  factory VersionController() => _instance;
+  factory VersionController() => instance;
 
   VersionController._internal();
 

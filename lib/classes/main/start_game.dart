@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:coopandreas_launcher/classes/controllers/text_controllers_manipulate.dart';
+import 'package:pub_semver/pub_semver.dart';
 import '../../utils/constants.dart';
 import '../../utils/launch_result.dart';
+import '../controllers/version_controller.dart';
 import '../settings/game_path/game_path.dart';
 import '../settings/unique_system_id/unique_system_id.dart';
 
@@ -50,6 +52,12 @@ class StartGame {
 
     if (!modFile.existsSync()) {
       return LaunchResultType.modNotFound;
+    }
+
+    VersionController.instance.update();
+
+    if (VersionController.instance.currentModVersion == Version.none) {
+      return LaunchResultType.unknownModVersion;
     }
 
     final String ipPort =

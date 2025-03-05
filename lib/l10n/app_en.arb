@@ -57,5 +57,6 @@
   "serial_key": "Serial key",
   "go_to_settings": "Go to Settings",
   "important_info_about_serial_key": "You are playing the alpha/beta version of CoopAndreas.\nThis version needs a beta test serial key.\nDon't worry, the mod as well as the serial key are completely free.\nGo to our Discord server, and type in the command below into any channel",
-  "unknown": "Unknown"
+  "unknown": "Unknown",
+  "unknown_mod_version": "Unknown mod version"
 }
