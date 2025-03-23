@@ -8,7 +8,7 @@ import 'package:window_manager/window_manager.dart';
 import 'package:coopandreas_launcher/l10n/l10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'classes/data/storage_data.dart';
-import 'classes/misc/system_info_provider.dart';
+import 'classes/misc/wmi_provider.dart';
 import 'language/language_provider.dart';
 import 'launcher/main_page.dart';
 import 'theme/dark.dart';
@@ -34,7 +34,7 @@ Future<void> main() async {
   });
 
   await StorageData.init();
-  UniqueSystemId.init(SystemInfoProvider.getUniqueSystemId());
+  UniqueSystemId.init(await WMIProvider.getUniqueSystemId());
 
   runApp(MultiProvider(
       providers: [
