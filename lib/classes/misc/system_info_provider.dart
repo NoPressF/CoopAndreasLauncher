@@ -2,23 +2,18 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:crypto/crypto.dart';
 
-enum SystemClassInfoType { win32Processor, win32Diskdrive }
-
-enum SystemPropertyInfoType { processorId, serialNumber }
+enum SystemPropertyType { processorId, serialNumber }
 
 class SystemInfoProvider {
-  static String get(
-      SystemClassInfoType classType, SystemPropertyInfoType propertyType) {
+  static String get(SystemPropertyType propertyType) {
     try {
-      if (classType == SystemClassInfoType.win32Processor &&
-          propertyType == SystemPropertyInfoType.processorId) {
-        return _executeCommand("wmic cpu get ProcessorId")
-            .split('\n')[1]
+      if (propertyType == SystemPropertyType.processorId) {
+        return _executePowerShellCommand(
+                "Get-WmiObject Win32_Processor | Select-Object -ExpandProperty ProcessorId")
             .trim();
-      } else if (classType == SystemClassInfoType.win32Diskdrive &&
-          propertyType == SystemPropertyInfoType.serialNumber) {
-        return _executeCommand("wmic diskdrive get SerialNumber")
-            .split('\n')[1]
+      } else if (propertyType == SystemPropertyType.serialNumber) {
+        return _executePowerShellCommand(
+                "Get-WmiObject Win32_DiskDrive | Select-Object -ExpandProperty SerialNumber")
             .trim();
       }
     } catch (e) {
@@ -27,19 +22,17 @@ class SystemInfoProvider {
     return "Unknown";
   }
 
-  static String _executeCommand(String command) {
-    ProcessResult result = Process.runSync("cmd", ["/C", command]);
+  static String _executePowerShellCommand(String command) {
+    ProcessResult result = Process.runSync("powershell", ["-Command", command]);
     return result.stdout.toString();
   }
 
   static String getUniqueSystemId() {
-    String cpuId = SystemInfoProvider.get(
-        SystemClassInfoType.win32Processor, SystemPropertyInfoType.processorId);
-    String diskSerial = SystemInfoProvider.get(
-        SystemClassInfoType.win32Diskdrive,
-        SystemPropertyInfoType.serialNumber);
+    String processorId = SystemInfoProvider.get(SystemPropertyType.processorId);
+    String serialNumber =
+        SystemInfoProvider.get(SystemPropertyType.serialNumber);
     String combined =
-        "$cpuId$diskSerial${Platform.environment['COMPUTERNAME']}${Platform.environment['USERNAME']}";
+        "$processorId$serialNumber${Platform.environment['COMPUTERNAME']}${Platform.environment['USERNAME']}";
 
     var bytes = utf8.encode(combined);
     var hash = md5.convert(bytes);
