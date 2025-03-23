@@ -64,7 +64,7 @@ class GamePath {
   static void setPath(String path) {
     _folderPath = path;
     _executablePath = '$path\\gta_sa.exe';
-    _executableLauncherPath = '$exeDirectory\\launcher.exe';
+    _executableLauncherPath = '$exeDirectory\\launcher_assistant.exe';
     _modPath = '$path\\${Constants.gameModName}';
     StorageData.setStorageStringFieldData(StorageField.gameFolderPath, path);
   }

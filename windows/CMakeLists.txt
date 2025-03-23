@@ -52,24 +52,24 @@ add_subdirectory(${FLUTTER_MANAGED_DIR})
 # Application build; see runner/CMakeLists.txt.
 add_subdirectory("runner")
 
-# The "native" subproject contains a 32-bit application,
+# The "assistant" subproject contains a 32-bit application,
 # which is designed to inject CoopAndreasSA.dll into the target process.
 include(ExternalProject)
 
-set(NATIVE_OUTPUT_DIR "${CMAKE_BINARY_DIR}/runner")
+set(ASSISTANT_OUTPUT_DIR "${CMAKE_BINARY_DIR}/runner")
 
 ExternalProject_Add(
-        native
-        SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../native"
-        BINARY_DIR "${CMAKE_BINARY_DIR}/native_build"
+        assistant
+        SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../assistant"
+        BINARY_DIR "${CMAKE_BINARY_DIR}/assistant_build"
         CMAKE_ARGS
-        -DCMAKE_TOOLCHAIN_FILE=${CMAKE_CURRENT_SOURCE_DIR}/../native/toolchain_32bit.cmake
+        -DCMAKE_TOOLCHAIN_FILE=${CMAKE_CURRENT_SOURCE_DIR}/../assistant/toolchain_32bit.cmake
         -DCMAKE_BUILD_TYPE=Release
-        -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${NATIVE_OUTPUT_DIR}
+        -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${ASSISTANT_OUTPUT_DIR}
         INSTALL_COMMAND ""
 )
 
-add_dependencies(coopandreas_launcher native)
+add_dependencies(coopandreas_launcher assistant)
 
 # Generated plugin build rules, which manage building the plugins and adding
 # them to the application.

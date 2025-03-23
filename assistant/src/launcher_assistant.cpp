@@ -1,7 +1,4 @@
-﻿#include <iostream>
-#include <windows.h>
-#include <tlhelp32.h>
-#include <vector>
+﻿#include "launcher_assistant.h"
 
 DWORD GetProcessIdByName(const std::wstring &processName) {
     DWORD processId = 0;
