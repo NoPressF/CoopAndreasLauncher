@@ -3,20 +3,15 @@
 #include <tlhelp32.h>
 #include <vector>
 
-DWORD GetProcessIdByName(const std::wstring& processName) 
-{
+DWORD GetProcessIdByName(const std::wstring &processName) {
     DWORD processId = 0;
     HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-    if (hSnapshot != INVALID_HANDLE_VALUE) 
-    {
+    if (hSnapshot != INVALID_HANDLE_VALUE) {
         PROCESSENTRY32W pe;
         pe.dwSize = sizeof(PROCESSENTRY32W);
-        if (Process32FirstW(hSnapshot, &pe)) 
-        {
-            do 
-            {
-                if (processName == pe.szExeFile) 
-                {
+        if (Process32FirstW(hSnapshot, &pe)) {
+            do {
+                if (processName == pe.szExeFile) {
                     processId = pe.th32ProcessID;
                     break;
                 }
@@ -27,20 +22,15 @@ DWORD GetProcessIdByName(const std::wstring& processName)
     return processId;
 }
 
-std::vector<DWORD> GetProcessIdsByName(const std::wstring& processName) 
-{
-    std::vector<DWORD> processIds;
+std::vector <DWORD> GetProcessIdsByName(const std::wstring &processName) {
+    std::vector <DWORD> processIds;
     HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-    if (hSnapshot != INVALID_HANDLE_VALUE) 
-    {
+    if (hSnapshot != INVALID_HANDLE_VALUE) {
         PROCESSENTRY32W pe;
         pe.dwSize = sizeof(PROCESSENTRY32W);
-        if (Process32FirstW(hSnapshot, &pe)) 
-        {
-            do 
-            {
-                if (processName == pe.szExeFile) 
-                {
+        if (Process32FirstW(hSnapshot, &pe)) {
+            do {
+                if (processName == pe.szExeFile) {
                     processIds.push_back(pe.th32ProcessID);
                 }
             } while (Process32NextW(hSnapshot, &pe));
@@ -50,8 +40,7 @@ std::vector<DWORD> GetProcessIdsByName(const std::wstring& processName)
     return processIds;
 }
 
-HWND GetWindowHandleByProcessId(DWORD processId) 
-{
+HWND GetWindowHandleByProcessId(DWORD processId) {
     struct EnumData {
         DWORD processId;
         HWND hwnd;
@@ -60,11 +49,10 @@ HWND GetWindowHandleByProcessId(DWORD processId)
     data.hwnd = NULL;
 
     EnumWindows([](HWND hwnd, LPARAM lParam) -> BOOL {
-        EnumData* pData = reinterpret_cast<EnumData*>(lParam);
+        EnumData *pData = reinterpret_cast<EnumData *>(lParam);
         DWORD wndProcessId;
         GetWindowThreadProcessId(hwnd, &wndProcessId);
-        if (wndProcessId == pData->processId) 
-        {
+        if (wndProcessId == pData->processId) {
             pData->hwnd = hwnd;
             return FALSE;
         }
@@ -74,38 +62,32 @@ HWND GetWindowHandleByProcessId(DWORD processId)
     return data.hwnd;
 }
 
-void ResizeGameWindowSize(HWND hwnd, int x, int y, int width, int height)
-{
+void ResizeGameWindowSize(HWND hwnd, int x, int y, int width, int height) {
     MoveWindow(hwnd, x, y, width, height, TRUE);
 }
 
-bool InjectDLL(HANDLE process)
-{
-    std::wstring dllPath = L"CoopAndreasSA.dll";
-
+bool InjectDLL(HANDLE process, const std::wstring &dllPath) {
     size_t dllPathSize = (dllPath.size() + 1) * sizeof(wchar_t);
-    LPVOID allocMem = VirtualAllocEx(process, NULL, dllPathSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
-    if (!allocMem)
-    {
+    LPVOID allocMem = VirtualAllocEx(process, NULL, dllPathSize, MEM_RESERVE | MEM_COMMIT,
+                                     PAGE_READWRITE);
+    if (!allocMem) {
         return false;
     }
 
-    if (!WriteProcessMemory(process, allocMem, dllPath.c_str(), dllPathSize, NULL))
-    {
+    if (!WriteProcessMemory(process, allocMem, dllPath.c_str(), dllPathSize, NULL)) {
         VirtualFreeEx(process, allocMem, 0, MEM_RELEASE);
         return false;
     }
 
     LPVOID loadLibraryAddr = GetProcAddress(GetModuleHandleW(L"kernel32.dll"), "LoadLibraryW");
-    if (!loadLibraryAddr)
-    {
+    if (!loadLibraryAddr) {
         VirtualFreeEx(process, allocMem, 0, MEM_RELEASE);
         return false;
     }
 
-    HANDLE hThread = CreateRemoteThread(process, NULL, 0, (LPTHREAD_START_ROUTINE)loadLibraryAddr, allocMem, 0, NULL);
-    if (!hThread)
-    {
+    HANDLE hThread = CreateRemoteThread(process, NULL, 0, (LPTHREAD_START_ROUTINE) loadLibraryAddr,
+                                        allocMem, 0, NULL);
+    if (!hThread) {
         VirtualFreeEx(process, allocMem, 0, MEM_RELEASE);
         return false;
     }
@@ -116,18 +98,18 @@ bool InjectDLL(HANDLE process)
     return true;
 }
 
-bool LaunchAndInjectGame(const std::wstring &gamePath, std::wstring &commandLine, bool debug, int windowIndex)
-{
+bool LaunchAndInjectGame(const std::wstring &gameExecutablePath, const std::wstring &dllPath,
+                         std::wstring &commandLine, bool debug, int windowIndex) {
     STARTUPINFOW si = {sizeof(STARTUPINFOW)};
     PROCESS_INFORMATION pi = {0};
 
-    if (!CreateProcessW(gamePath.c_str(), commandLine.data(), NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &si, &pi))
-    {
+    if (!CreateProcessW(gameExecutablePath.c_str(), commandLine.data(), NULL, NULL, FALSE,
+                        CREATE_SUSPENDED, NULL, NULL, &si, &pi)) {
         return false;
     }
 
-    if (!InjectDLL(pi.hProcess))
-    {
+
+    if (!InjectDLL(pi.hProcess, dllPath)) {
         TerminateProcess(pi.hProcess, 1);
         return false;
     }
@@ -136,26 +118,22 @@ bool LaunchAndInjectGame(const std::wstring &gamePath, std::wstring &commandLine
     CloseHandle(pi.hThread);
     CloseHandle(pi.hProcess);
 
-    if (!debug)
-    {
+    if (!debug) {
         return true;
     }
 
-    std::vector<DWORD> pids = GetProcessIdsByName(L"gta_sa.exe");
+    std::vector <DWORD> pids = GetProcessIdsByName(L"gta_sa.exe");
     HWND hwnd = 0;
     int i = 0;
-    while (!hwnd)
-    {
+    while (!hwnd) {
         Sleep(20);
         hwnd = GetWindowHandleByProcessId(pids[windowIndex]);
-        
-        if (hwnd)
-        {
+
+        if (hwnd) {
             char name[4];
             GetWindowTextA(hwnd, &name[0], 4);
             name[3] = 0;
-            if (_strnicmp(name, "gta", 3) != 0)
-            {
+            if (_strnicmp(name, "gta", 3) != 0) {
                 PostMessage(hwnd, WM_SYSCOMMAND, SC_MINIMIZE, 0);
                 hwnd = NULL;
             }
@@ -164,12 +142,10 @@ bool LaunchAndInjectGame(const std::wstring &gamePath, std::wstring &commandLine
             break;
     }
 
-    if (!hwnd)
-    {
+    if (!hwnd) {
         return false;
     }
-    if (windowIndex == 0)
-    {
+    if (windowIndex == 0) {
         SetForegroundWindow(hwnd);
         SetFocus(hwnd);
     }
@@ -178,36 +154,30 @@ bool LaunchAndInjectGame(const std::wstring &gamePath, std::wstring &commandLine
     return true;
 }
 
-int wmain(int argc, wchar_t *argv[])
-{
-    if (argc < 2)
-    {
+int wmain(int argc, wchar_t *argv[]) {
+    if (argc < 2) {
         return 1;
     }
 
-    std::wstring gamePath = argv[1];
-    bool debug = (std::wstring(argv[12]) == L"true");
+    std::wstring gameExecutablePath = argv[1];
+    std::wstring dllPath = argv[2];
+    bool debug = (std::wstring(argv[13]) == L"true");
 
     std::wstring commandLine;
-    for (int i = 2; i < argc; ++i)
-    {
+    for (int i = 3; i < argc; ++i) {
         commandLine += argv[i];
-        if (i < argc - 1)
-        {
+        if (i < argc - 1) {
             commandLine += L" ";
         }
     }
 
-    if (!LaunchAndInjectGame(gamePath, commandLine, debug, 0))
-    {
+    if (!LaunchAndInjectGame(gameExecutablePath, dllPath, commandLine, debug, 0)) {
         return 1;
     }
 
-    if (debug)
-    {
+    if (debug) {
         Sleep(0);
-        if (!LaunchAndInjectGame(gamePath, commandLine, debug, 1))
-        {
+        if (!LaunchAndInjectGame(gameExecutablePath, dllPath, commandLine, debug, 1)) {
             return 1;
         }
     }

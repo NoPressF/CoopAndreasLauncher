@@ -81,6 +81,7 @@ class StartGame {
 
     List<String> args = [
       GamePath.getExecutablePath,
+      GamePath.getModPath,
       '-name',
       TextControllerManipulate.getController(TextController.nickName).text,
       '-ip',

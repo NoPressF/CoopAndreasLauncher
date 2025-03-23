@@ -11,7 +11,7 @@ class VersionController extends ChangeNotifier {
   VersionController._internal();
 
   Version currentModVersion = Version.none;
-  final Version currentLauncherVersion = Version.parse('0.1.0');
+  final Version currentLauncherVersion = Version.parse('0.2.0');
 
   void update() {
     currentModVersion = ExtractVersion.getDllModVersion();

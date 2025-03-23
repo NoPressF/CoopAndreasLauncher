@@ -52,6 +52,24 @@ add_subdirectory(${FLUTTER_MANAGED_DIR})
 # Application build; see runner/CMakeLists.txt.
 add_subdirectory("runner")
 
+# The "native" subproject contains a 32-bit application,
+# which is designed to inject CoopAndreasSA.dll into the target process.
+include(ExternalProject)
+
+set(NATIVE_OUTPUT_DIR "${CMAKE_BINARY_DIR}/runner")
+
+ExternalProject_Add(
+        native
+        SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../native"
+        BINARY_DIR "${CMAKE_BINARY_DIR}/native_build"
+        CMAKE_ARGS
+        -DCMAKE_TOOLCHAIN_FILE=${CMAKE_CURRENT_SOURCE_DIR}/../native/toolchain_32bit.cmake
+        -DCMAKE_BUILD_TYPE=Release
+        -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${NATIVE_OUTPUT_DIR}
+        INSTALL_COMMAND ""
+)
+
+add_dependencies(coopandreas_launcher native)
 
 # Generated plugin build rules, which manage building the plugins and adding
 # them to the application.
@@ -69,8 +87,8 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set(CMAKE_INSTALL_PREFIX "${BUILD_BUNDLE_DIR}" CACHE PATH "..." FORCE)
 endif()
 
-set(INSTALL_BUNDLE_DATA_DIR "${CMAKE_INSTALL_PREFIX}/launcher_data/data")
-set(INSTALL_BUNDLE_LIB_DIR "${CMAKE_INSTALL_PREFIX}/launcher_data")
+set(INSTALL_BUNDLE_DATA_DIR "${CMAKE_INSTALL_PREFIX}/data")
+set(INSTALL_BUNDLE_LIB_DIR "${CMAKE_INSTALL_PREFIX}")
 
 install(TARGETS ${BINARY_NAME} RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}"
   COMPONENT Runtime)

@@ -10,6 +10,9 @@ class GamePath {
   static String _executableLauncherPath = '';
   static String _modPath = '';
 
+  static String exePath = Platform.resolvedExecutable;
+  static String exeDirectory = File(exePath).parent.path;
+
   static get getFolderPath => _folderPath;
 
   static get getExecutablePath => _executablePath;
@@ -61,7 +64,7 @@ class GamePath {
   static void setPath(String path) {
     _folderPath = path;
     _executablePath = '$path\\gta_sa.exe';
-    _executableLauncherPath = '$path\\modern_launcher.exe';
+    _executableLauncherPath = '$exeDirectory\\launcher.exe';
     _modPath = '$path\\${Constants.gameModName}';
     StorageData.setStorageStringFieldData(StorageField.gameFolderPath, path);
   }
