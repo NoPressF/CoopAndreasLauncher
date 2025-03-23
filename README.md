@@ -16,15 +16,6 @@ This launcher was created for a cooperative modification for GTA:SA called [Coop
 ```ps
 flutter build windows
 ```
-**Build game runner**
-
-Open cmd in the repository directory and run
-```cmd
-cd native
-mkdir build
-cmake -S . -B build -A Win32
-cmake --build build --config MinSizeRel
-```
 
 ## Contributors
 Thanks [@SrMilton](https://github.com/SrMilton) for (Portuguese, English) translation  
