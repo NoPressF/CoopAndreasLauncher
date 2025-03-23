@@ -57,14 +57,15 @@ add_subdirectory("runner")
 include(ExternalProject)
 
 set(ASSISTANT_OUTPUT_DIR "${CMAKE_BINARY_DIR}/runner")
-
 ExternalProject_Add(
         assistant
         SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../assistant"
         BINARY_DIR "${CMAKE_BINARY_DIR}/assistant_build"
         CMAKE_ARGS
+        CMAKE_GENERATOR "${CMAKE_GENERATOR}"
+        CMAKE_GENERATOR_PLATFORM Win32
         -DCMAKE_TOOLCHAIN_FILE=${CMAKE_CURRENT_SOURCE_DIR}/../assistant/toolchain_32bit.cmake
-        -DCMAKE_BUILD_TYPE=Release
+        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
         -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${ASSISTANT_OUTPUT_DIR}
         INSTALL_COMMAND ""
 )
