@@ -52,26 +52,6 @@ add_subdirectory(${FLUTTER_MANAGED_DIR})
 # Application build; see runner/CMakeLists.txt.
 add_subdirectory("runner")
 
-# The "assistant" subproject contains a 32-bit application,
-# which is designed to inject CoopAndreasSA.dll into the target process.
-include(ExternalProject)
-
-set(ASSISTANT_OUTPUT_DIR "${CMAKE_BINARY_DIR}/runner")
-ExternalProject_Add(
-        assistant
-        SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../assistant"
-        BINARY_DIR "${CMAKE_BINARY_DIR}/assistant_build"
-        CMAKE_ARGS
-        CMAKE_GENERATOR "${CMAKE_GENERATOR}"
-        CMAKE_GENERATOR_PLATFORM Win32
-        -DCMAKE_TOOLCHAIN_FILE=${CMAKE_CURRENT_SOURCE_DIR}/../assistant/toolchain_32bit.cmake
-        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-        -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${ASSISTANT_OUTPUT_DIR}
-        INSTALL_COMMAND ""
-)
-
-add_dependencies(coopandreas_launcher assistant)
-
 # Generated plugin build rules, which manage building the plugins and adding
 # them to the application.
 include(flutter/generated_plugins.cmake)
@@ -105,6 +85,27 @@ if(PLUGIN_BUNDLED_LIBRARIES)
     DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
     COMPONENT Runtime)
 endif()
+
+# The "assistant" subproject contains a 32-bit application,
+# which is designed to inject CoopAndreasSA.dll into the target process.
+include(ExternalProject)
+
+set(MAIN_BIN_DIR "${CMAKE_BINARY_DIR}/runner/${CMAKE_BUILD_TYPE}")
+
+ExternalProject_Add(
+        assistant
+        SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../assistant"
+        BINARY_DIR "${CMAKE_BINARY_DIR}/assistant_build"
+        CMAKE_ARGS
+        CMAKE_GENERATOR "${CMAKE_GENERATOR}"
+        CMAKE_GENERATOR_PLATFORM Win32
+        -DCMAKE_TOOLCHAIN_FILE=${CMAKE_CURRENT_SOURCE_DIR}/../assistant/toolchain_32bit.cmake
+        -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=${MAIN_BIN_DIR}
+        INSTALL_COMMAND ""
+        BUILD_ALWAYS ON
+)
+
+add_dependencies(${BINARY_NAME} assistant)
 
 # Copy the native assets provided by the build.dart from all packages.
 set(NATIVE_ASSETS_DIR "${PROJECT_BUILD_DIR}native_assets/windows/")
