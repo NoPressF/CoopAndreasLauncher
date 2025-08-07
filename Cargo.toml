@@ -6,7 +6,8 @@ edition = "2024"
 build = "build.rs"
 
 [dependencies]
-druid = "0.8.3"
+druid = { version = "0.8.3", features = ["image"] }
+image = { version = "0.24.9", features = ["png"] }
 
 [target.'cfg(windows)'.build-dependencies]
 winres = "0.1.12"
