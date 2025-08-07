@@ -6,6 +6,7 @@ use druid::widget::{Align, Container, Flex, Label};
 use druid::{AppLauncher, Screen, UnitPoint, Widget, WidgetExt, WindowDesc};
 
 mod controllers;
+mod embed;
 mod launcher_data;
 mod utils;
 mod widgets;

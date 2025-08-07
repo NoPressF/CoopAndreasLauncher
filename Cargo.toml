@@ -8,6 +8,7 @@ build = "build.rs"
 [dependencies]
 druid = { version = "0.8.3", features = ["image"] }
 image = { version = "0.24.9", features = ["png"] }
+rust-embed = "8.7.2"
 
 [target.'cfg(windows)'.build-dependencies]
 winres = "0.1.12"
