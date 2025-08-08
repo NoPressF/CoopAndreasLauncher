@@ -2,8 +2,8 @@
 
 use druid::piet::FontWeight;
 use druid::text::{FontDescriptor, FontFamily, FontStyle};
-use druid::widget::{Align, Container, Flex, Label};
-use druid::{AppLauncher, Screen, UnitPoint, Widget, WidgetExt, WindowDesc};
+use druid::widget::{Align, Container, Flex, Label, SizedBox, ZStack};
+use druid::{AppLauncher, Screen, Size, UnitPoint, Vec2, Widget, WidgetExt, WindowDesc};
 
 mod controllers;
 mod embed;
@@ -11,11 +11,16 @@ mod launcher_data;
 mod utils;
 mod widgets;
 
-use controllers::drag_controller::DragController;
+use controllers::drag_window_controller::DragWindowController;
 use launcher_data::LauncherData;
 use utils::colors::Colors;
+use utils::url::{DISCORD_URL, GITHUB_URL};
 use utils::window_constants::{WINDOW_SIZE, WINDOW_TITLE};
-use widgets::icon::Icon;
+use widgets::link_icon::LinkIcon;
+use widgets::window_button::WindowButton;
+
+use crate::controllers::window_button_controller::WindowButtonController;
+use crate::widgets::window_button::WindowButtonAction;
 
 fn build_ui() -> impl Widget<LauncherData> {
     let font = FontDescriptor {
@@ -25,30 +30,51 @@ fn build_ui() -> impl Widget<LauncherData> {
         style: FontStyle::default(),
     };
 
-    let label = Label::new("CoopAndreas").with_font(font);
+    let title_label = Label::new("CoopAndreas")
+        .with_font(font)
+        .controller(DragWindowController);
 
-    let top_bar = Container::new(
-        Flex::row()
-            .with_child(label)
-            .center()
-            .controller(DragController),
-    )
-    .fix_height(60.0)
-    .expand_width()
-    .background(Colors::BackgroundGrey);
+    let draggable_bg = Container::new(SizedBox::empty().expand())
+        .background(Colors::BackgroundGrey)
+        .controller(DragWindowController);
+
+    let window_buttons = Flex::row()
+        .with_child(
+            WindowButton::new::<LauncherData>("window_minimize", Size::new(16.0, 16.0))
+                .controller(WindowButtonController::new(WindowButtonAction::Minimize)),
+        )
+        .with_spacer(20.0)
+        .with_child(
+            WindowButton::new::<LauncherData>("window_close", Size::new(14.0, 14.0))
+                .controller(WindowButtonController::new(WindowButtonAction::Close)),
+        )
+        .with_spacer(10.0)
+        .padding(5.0);
+
+    let top_bar = ZStack::new(draggable_bg)
+        .with_child(
+            title_label,
+            Vec2::new(1.0, 1.0),
+            Vec2::ZERO,
+            UnitPoint::CENTER,
+            Vec2::ZERO,
+        )
+        .with_child(
+            window_buttons,
+            Vec2::new(1.0, 1.0),
+            Vec2::ZERO,
+            UnitPoint::RIGHT,
+            Vec2::ZERO,
+        )
+        .fix_height(60.0)
+        .expand_width();
 
     let row_links = Align::horizontal(
         UnitPoint::BOTTOM_LEFT,
         Flex::row()
-            .with_child(Icon::new::<LauncherData>(
-                "github_logo",
-                "https://github.com/Tornamic/CoopAndreas",
-            ))
+            .with_child(LinkIcon::new::<LauncherData>("github_logo", GITHUB_URL))
             .with_spacer(10.0)
-            .with_child(Icon::new::<LauncherData>(
-                "discord_logo",
-                "https://discord.com/invite/TwQsR4qxVx",
-            ))
+            .with_child(LinkIcon::new::<LauncherData>("discord_logo", DISCORD_URL))
             .padding(8.0),
     );
 
