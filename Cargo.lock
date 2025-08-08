@@ -195,6 +195,7 @@ dependencies = [
  "druid",
  "image",
  "rust-embed",
+ "semver",
  "winres",
 ]
 

@@ -2,7 +2,7 @@
 
 use druid::piet::FontWeight;
 use druid::text::{FontDescriptor, FontFamily, FontStyle};
-use druid::widget::{Align, Container, Flex, Label, SizedBox, ZStack};
+use druid::widget::{Align, Container, CrossAxisAlignment, Flex, Label, SizedBox, ZStack};
 use druid::{AppLauncher, Screen, Size, UnitPoint, Vec2, Widget, WidgetExt, WindowDesc};
 
 mod controllers;
@@ -23,15 +23,17 @@ use crate::controllers::window_button_controller::WindowButtonController;
 use crate::widgets::window_button::WindowButtonAction;
 
 fn build_ui() -> impl Widget<LauncherData> {
-    let font = FontDescriptor {
+    let title_font = FontDescriptor {
         family: FontFamily::default(),
         size: 18.0,
         weight: FontWeight::BOLD,
         style: FontStyle::default(),
     };
 
+    let version_font = title_font.clone().with_size(14.0);
+
     let title_label = Label::new("CoopAndreas")
-        .with_font(font)
+        .with_font(title_font)
         .controller(DragWindowController);
 
     let draggable_bg = Container::new(SizedBox::empty().expand())
@@ -74,14 +76,25 @@ fn build_ui() -> impl Widget<LauncherData> {
         Flex::row()
             .with_child(LinkIcon::new::<LauncherData>("github_logo", GITHUB_URL))
             .with_spacer(10.0)
-            .with_child(LinkIcon::new::<LauncherData>("discord_logo", DISCORD_URL))
-            .padding(8.0),
+            .with_child(LinkIcon::new::<LauncherData>("discord_logo", DISCORD_URL)),
     );
+
+    let version = Align::horizontal(
+        UnitPoint::BOTTOM_RIGHT,
+        Flex::<LauncherData>::row().with_child(
+            Label::new(|data: &LauncherData, _env: &_| data.version).with_font(version_font),
+        ),
+    );
+
+    let bottom_row = Flex::row()
+        .cross_axis_alignment(CrossAxisAlignment::End)
+        .with_flex_child(row_links.expand_width().padding(7.0), 1.0)
+        .with_child(version.padding(6.0));
 
     let content = Flex::column()
         .with_child(top_bar)
         .with_flex_spacer(1.0)
-        .with_child(row_links)
+        .with_child(bottom_row)
         .background(Colors::BackgroundDarkGrey);
 
     content
@@ -108,6 +121,8 @@ fn main() {
 
     AppLauncher::with_window(main_window)
         .log_to_console()
-        .launch(LauncherData {})
+        .launch(LauncherData {
+            version: env!("CARGO_PKG_VERSION"),
+        })
         .expect("Failed to launch application");
 }
