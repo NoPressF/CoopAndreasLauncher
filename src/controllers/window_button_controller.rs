@@ -1,6 +1,6 @@
-use crate::widgets::window_button::WindowButtonAction;
+use crate::{launcher_data::LauncherData, widgets::window_button::WindowButtonAction};
 
-use druid::{Cursor, Data, Env, Event, EventCtx, Widget, WindowState, widget::Controller};
+use druid::{Cursor, Env, Event, EventCtx, Widget, WindowState, widget::Controller};
 
 pub struct WindowButtonController {
     action: WindowButtonAction,
@@ -12,13 +12,21 @@ impl WindowButtonController {
     }
 }
 
-impl<T: Data, W: Widget<T>> Controller<T, W> for WindowButtonController {
-    fn event(&mut self, child: &mut W, ctx: &mut EventCtx, event: &Event, data: &mut T, env: &Env) {
+impl<W: Widget<LauncherData>> Controller<LauncherData, W> for WindowButtonController {
+    fn event(
+        &mut self,
+        child: &mut W,
+        ctx: &mut EventCtx,
+        event: &Event,
+        data: &mut LauncherData,
+        env: &Env,
+    ) {
         match event {
             Event::MouseUp(_) => match self.action {
                 WindowButtonAction::Minimize => {
                     let mut window_handle = ctx.window().clone();
                     window_handle.set_window_state(WindowState::Minimized);
+                    data.is_hot_button = false;
                     ctx.set_handled();
                 }
                 WindowButtonAction::Close => {
@@ -28,6 +36,7 @@ impl<T: Data, W: Widget<T>> Controller<T, W> for WindowButtonController {
             },
             Event::MouseMove(_) => {
                 ctx.set_cursor(&Cursor::Pointer);
+                data.is_hot_button = ctx.is_hot();
                 ctx.set_handled();
             }
             _ => {}

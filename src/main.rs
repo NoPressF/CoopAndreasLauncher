@@ -32,13 +32,10 @@ fn build_ui() -> impl Widget<LauncherData> {
 
     let version_font = title_font.clone().with_size(14.0);
 
-    let title_label = Label::new("CoopAndreas")
-        .with_font(title_font)
-        .controller(DragWindowController);
+    let title_label = Label::new("CoopAndreas").with_font(title_font);
 
-    let draggable_bg = Container::new(SizedBox::empty().expand())
-        .background(Colors::BackgroundGrey)
-        .controller(DragWindowController);
+    let draggable_bg =
+        Container::new(SizedBox::empty().expand()).background(Colors::BackgroundGrey);
 
     let window_buttons = Flex::row()
         .with_child(
@@ -69,7 +66,8 @@ fn build_ui() -> impl Widget<LauncherData> {
             Vec2::ZERO,
         )
         .fix_height(60.0)
-        .expand_width();
+        .expand_width()
+        .controller(DragWindowController);
 
     let row_links = Align::horizontal(
         UnitPoint::BOTTOM_LEFT,
@@ -123,6 +121,7 @@ fn main() {
         .log_to_console()
         .launch(LauncherData {
             version: env!("CARGO_PKG_VERSION"),
+            is_hot_button: false,
         })
         .expect("Failed to launch application");
 }

@@ -5,6 +5,7 @@ use semver::Version;
 #[derive(Clone, Data, Lens)]
 pub struct LauncherData {
     pub version: &'static str,
+    pub is_hot_button: bool,
 }
 
 impl LauncherData {
