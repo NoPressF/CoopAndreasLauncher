@@ -1,4 +1,4 @@
-#![windows_subsystem = "console"]
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use druid::piet::FontWeight;
 use druid::text::{FontDescriptor, FontFamily, FontStyle};
