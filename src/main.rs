@@ -19,9 +19,6 @@ use utils::window_constants::{WINDOW_SIZE, WINDOW_TITLE};
 use widgets::link_icon::LinkIcon;
 use widgets::window_button::WindowButton;
 
-use crate::controllers::window_button_controller::WindowButtonController;
-use crate::widgets::window_button::WindowButtonAction;
-
 fn build_ui() -> impl Widget<LauncherData> {
     let title_font = FontDescriptor {
         family: FontFamily::default(),
@@ -38,15 +35,17 @@ fn build_ui() -> impl Widget<LauncherData> {
         Container::new(SizedBox::empty().expand()).background(Colors::BackgroundGrey);
 
     let window_buttons = Flex::row()
-        .with_child(
-            WindowButton::new::<LauncherData>("window_minimize", Size::new(16.0, 16.0))
-                .controller(WindowButtonController::new(WindowButtonAction::Minimize)),
-        )
+        .with_child(WindowButton::new(
+            "window_minimize",
+            widgets::window_button::WindowButtonAction::Minimize,
+            Size::new(16.0, 16.0),
+        ))
         .with_spacer(20.0)
-        .with_child(
-            WindowButton::new::<LauncherData>("window_close", Size::new(14.0, 14.0))
-                .controller(WindowButtonController::new(WindowButtonAction::Close)),
-        )
+        .with_child(WindowButton::new(
+            "window_close",
+            widgets::window_button::WindowButtonAction::Close,
+            Size::new(14.0, 14.0),
+        ))
         .with_spacer(10.0)
         .padding(5.0);
 
